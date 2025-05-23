@@ -1,0 +1,31 @@
+name: "Project Template"
+type: "template"
+status: "template"
+
+description: |
+  This is a template for project proposals within Sub-DAHAOs.
+  Copy this structure for new project proposals.
+
+scope:
+  objectives: ["Define your project objectives"]
+  deliverables: ["List expected deliverables"]
+  timeline: "Define project timeline"
+  
+resources:
+  team_size: "2-5 members"
+  estimated_hours: "TBD"
+  required_skills: ["List required skills"]
+  
+governance:
+  approval_needed: "sub_dahao_majority"
+  reporting_frequency: "bi-weekly"
+  success_metrics: ["Define success criteria"]
+  
+budget:
+  estimated_cost: "TBD"
+  funding_source: "sub_dahao_treasury"
+  approval_threshold: "majority"
+
+metadata:
+  template_version: "1.0.0"
+  created: "2025-05-23"

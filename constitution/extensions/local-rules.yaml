@@ -1,0 +1,23 @@
+# Template for Sub-DAHAO specific governance rules
+# Customize this file for your Sub-DAHAO
+
+local_governance:
+  meeting_schedule: "monthly"
+  decision_making: "consensus_with_fallback"
+  
+custom_roles:
+  domain_expert:
+    requirements: ["proven_expertise", "community_nomination"]
+    permissions: ["technical_review", "proposal_guidance"]
+    term_length: "1 year"
+    
+special_procedures:
+  emergency_response:
+    trigger_conditions: ["critical_security_issue", "urgent_deadline"]
+    expedited_voting: true
+    required_approvers: ["maintainers", "domain_experts"]
+    
+integration:
+  core_alignment: true
+  regular_sync: "quarterly"
+  reporting: "monthly_to_core"

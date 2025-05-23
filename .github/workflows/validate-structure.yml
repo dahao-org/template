@@ -1,0 +1,59 @@
+name: Validate Sub-DAHAO Structure
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Validate Core Link
+      run: |
+        if [ -f ".core/link.yaml" ]; then
+          echo "✅ Core link file exists"
+        else
+          echo "❌ Missing .core/link.yaml"
+          exit 1
+        fi
+    
+    - name: Validate Mission Statement
+      run: |
+        if [ -f "constitution/mission.yaml" ]; then
+          echo "✅ Mission statement exists"
+        else
+          echo "❌ Missing constitution/mission.yaml"
+          exit 1
+        fi
+    
+    - name: Check Required Directories
+      run: |
+        for dir in constitution proposals projects agents governance; do
+          if [ -d "$dir" ]; then
+            echo "✅ $dir directory exists"
+          else
+            echo "❌ Missing $dir directory"
+            exit 1
+          fi
+        done
+    
+    - name: Validate YAML Files
+      run: |
+        # Install yq for YAML validation
+        sudo apt-get update && sudo apt-get install -y jq
+        wget -qO- https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 | sudo tee /usr/local/bin/yq > /dev/null
+        sudo chmod +x /usr/local/bin/yq
+        
+        # Validate YAML syntax
+        find . -name "*.yaml" -o -name "*.yml" | while read file; do
+          if yq eval . "$file" > /dev/null 2>&1; then
+            echo "✅ Valid YAML: $file"
+          else
+            echo "❌ Invalid YAML: $file"
+            exit 1
+          fi
+        done
